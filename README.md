@@ -49,23 +49,23 @@ ist in **Java** erfolgt und die Benutzeroberfläche wird über **JOptionPane** b
 ### Setup
 
 1. **Repository klonen**:
-   ```bash
+   ```
    git clone https://github.com/TGM-HIT/sew9-2425-worttrainer-bedlinger.git
    cd sew9-2425-worttrainer-bedlinger
     ```
 
 2. **Gradle-Projekt initialisieren:**
-    ```bash
+    ```
     gradle init
     ```
 
 3. **Projekt bauen:**
-    ```bash
+    ```
     gradle build
     ```
 
 4. **Anwendung starten:**
-    ```bash
+    ```
     gradle run
     ```
 
@@ -74,7 +74,7 @@ ist in **Java** erfolgt und die Benutzeroberfläche wird über **JOptionPane** b
 Automatisierte Tests wurden für die Kernfunktionen des Worttrainers implementiert, einschließlich der Validierung von
 Wort-Bild-Paaren, der Ratelogik und der Persistierung. Um die Tests auszuführen, verwende den Befehl:
 
-```bash
+```
 gradle test
 ```
 
