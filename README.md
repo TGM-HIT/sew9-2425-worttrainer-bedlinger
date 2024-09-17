@@ -50,8 +50,8 @@ ist in **Java** erfolgt und die Benutzeroberfläche wird über **JOptionPane** b
 
 1. **Repository klonen**:
    ```bash
-   git clone https://github.com/TGM-HIT/sew9-2425-worttrainer-<github-username>.git
-   cd sew9-2425-worttrainer-<github-username>
+   git clone https://github.com/TGM-HIT/sew9-2425-worttrainer-bedlinger.git
+   cd sew9-2425-worttrainer-bedlinger
     ```
 
 2. **Gradle-Projekt initialisieren:**
