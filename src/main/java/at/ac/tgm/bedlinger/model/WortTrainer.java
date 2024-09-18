@@ -152,6 +152,6 @@ public class WortTrainer {
      * @return die Anzahl der falsch eingegebenen Worte
      */
     public int getCounterFalsch() {
-        return counterFalsch;
+        return counterAbgefragt - counterKorrekt;
     }
 }
