@@ -12,18 +12,18 @@ import java.util.List;
  */
 public class WortTrainer {
     private final List<WortEintrag> wortliste;
-    private int counterAbgefragt, counterKorrekt, counterFalsch, aktuellerWortEintrag;
+    private int counterAbgefragt, counterKorrekt, counterFalsch, aktuellerWortEintragIndex;
 
     /**
      * Der Konstruktor erstellt ein neues WortTrainer-Objekt mit einer leeren Wortliste.
      * Die Counter werden auf 0 gesetzt, sowie der aktuelle WortEintrag.
      */
     public WortTrainer() {
-        this.wortliste = new ArrayList<>();
-        this.counterAbgefragt = 0;
-        this.counterKorrekt = 0;
-        this.counterFalsch = 0;
-        this.aktuellerWortEintrag = 0;
+        wortliste = new ArrayList<>();
+        counterAbgefragt = 0;
+        counterKorrekt = 0;
+        counterFalsch = 0;
+        aktuellerWortEintragIndex = 0;
     }
 
     /**
@@ -36,13 +36,13 @@ public class WortTrainer {
      * @return true, wenn das Wort korrekt ist, ansonsten false
      */
     public boolean check(String wort) {
-        this.counterAbgefragt++;
-        if (wort.equals(this.wortliste.get(this.aktuellerWortEintrag).getWort())) {
-            this.counterKorrekt++;
-            this.aktuellerWortEintrag = (int) (Math.random() * this.wortliste.size());
+        counterAbgefragt++;
+        if (wort.equals(wortliste.get(aktuellerWortEintragIndex).getWort())) {
+            counterKorrekt++;
+            aktuellerWortEintragIndex = (int) (Math.random() * wortliste.size());
             return true;
         } else {
-            this.counterFalsch++;
+            counterFalsch++;
             return false;
         }
     }
@@ -56,7 +56,7 @@ public class WortTrainer {
         this.wortliste.clear();
         for (WortEintrag wortEintrag : wortliste) {
             if (WortEintrag.checkWort(wortEintrag.getWort()) && WortEintrag.checkUrl(wortEintrag.getUrl())) {
-                this.wortliste.add(wortEintrag);
+                wortliste.add(wortEintrag);
             }
         }
     }
@@ -67,16 +67,16 @@ public class WortTrainer {
      * @return die Liste von WortEinträgen
      */
     public List<WortEintrag> getWortliste() {
-        return this.wortliste;
+        return wortliste;
     }
 
     /**
-     * Setzt den Counter für den aktuellen Worteintrag.
+     * Setzt den index für den aktuellen aktuellerWortEintragIndex.
      *
-     * @param i der index für den aktuellen Worteintrag
+     * @param i der index für den aktuellen aktuellerWortEintragIndex
      */
-    public void setAktuellerWortEintrag(int i) {
-        aktuellerWortEintrag = i;
+    public void setAktuellerWortEintragIndex(int i) {
+        aktuellerWortEintragIndex = i;
     }
 
     /**
@@ -84,8 +84,8 @@ public class WortTrainer {
      *
      * @return der index für den aktuellen Worteintrag
      */
-    public int getAktuellerWortEintrag() {
-        return aktuellerWortEintrag;
+    public int getAktuellerWortEintragIndex() {
+        return aktuellerWortEintragIndex;
     }
 
     /**
