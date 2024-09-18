@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 public class TestWortEintrag {
 
     @Test
-    @DisplayName("Teste die Erstellung eines WortEintrags")
+    @DisplayName("Testen der Erstellung eines WortEintrags")
     public void testCreateWortEintrag() {
         Assertions.assertDoesNotThrow(() -> new WortEintrag("Hund", "https://www.tiere.de/hund.jpg"));
 
@@ -33,7 +33,7 @@ public class TestWortEintrag {
     }
 
     @Test
-    @DisplayName("Teste die Richtigkeit der gesetzten Werte")
+    @DisplayName("Testen der Richtigkeit für die gesetzten Werte")
     public void testGetters() {
         WortEintrag wortEintrag = new WortEintrag("Hund", "https://www.tiere.de/hund.jpg");
         Assertions.assertEquals("Hund", wortEintrag.getWort());
