@@ -48,6 +48,15 @@ public class WortTrainer {
     }
 
     /**
+     * Gibt den aktuellen WortEintrag zurück, auf den der Index zeigt.
+     *
+     * @return der aktuelle WortEintrag
+     */
+    public WortEintrag getAktuellerWortEintrag() {
+        return wortliste.get(aktuellerWortEintragIndex);
+    }
+
+    /**
      * Fügt eine neue Liste von WortEinträgen hinzu, aber nur, wenn das Wort und die URL korrekt sind.
      *
      * @param wortliste die hinzuzufügende Liste von WortEinträgen
