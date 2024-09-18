@@ -42,7 +42,6 @@ public class WortTrainer {
             aktuellerWortEintragIndex = (int) (Math.random() * wortliste.size());
             return true;
         } else {
-            counterFalsch++;
             return false;
         }
     }
