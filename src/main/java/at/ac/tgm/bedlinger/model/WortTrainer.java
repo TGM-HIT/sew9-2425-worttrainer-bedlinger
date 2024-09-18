@@ -23,7 +23,7 @@ public class WortTrainer {
         counterAbgefragt = 0;
         counterKorrekt = 0;
         counterFalsch = 0;
-        aktuellerWortEintragIndex = 0;
+        aktuellerWortEintragIndex = (int) (Math.random() * wortliste.size());
     }
 
     /**
@@ -53,6 +53,10 @@ public class WortTrainer {
      * @param wortliste die hinzuzufügende Liste von WortEinträgen
      */
     public void setWortliste(List<WortEintrag> wortliste) {
+        if (wortliste == null)
+            throw new IllegalArgumentException("Die Wortliste darf nicht null sein!");
+        if (wortliste.isEmpty())
+            throw new IllegalArgumentException("Die Wortliste darf nicht leer sein!");
         this.wortliste.clear();
         for (WortEintrag wortEintrag : wortliste) {
             if (WortEintrag.checkWort(wortEintrag.getWort()) && WortEintrag.checkUrl(wortEintrag.getUrl())) {
@@ -76,6 +80,9 @@ public class WortTrainer {
      * @param i der index für den aktuellen aktuellerWortEintragIndex
      */
     public void setAktuellerWortEintragIndex(int i) {
+        if (i < 0 || i >= wortliste.size())
+            throw new IllegalArgumentException("Der Index für den aktuellen Worteintrag ist ungültig!");
+
         aktuellerWortEintragIndex = i;
     }
 
@@ -94,6 +101,9 @@ public class WortTrainer {
      * @param c die Anzahl der abgefragten Worte
      */
     public void setCounterAbgefragt(int c) {
+        if (c < 0)
+            throw new IllegalArgumentException("Der Counter für die abgefragten Worte darf nicht negativ sein!");
+
         counterAbgefragt = c;
     }
 
@@ -112,6 +122,9 @@ public class WortTrainer {
      * @param c die Anzahl der korrekt eingegebenen Worte
      */
     public void setCounterKorrekt(int c) {
+        if (c < 0)
+            throw new IllegalArgumentException("Der Counter für die korrekt eingegebenen Worte darf nicht negativ sein!");
+
         counterKorrekt = c;
     }
 
