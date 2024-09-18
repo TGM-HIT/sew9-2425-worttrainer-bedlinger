@@ -1,4 +1,4 @@
-package at.ac.tgm.bedlinger.Model;
+package at.ac.tgm.bedlinger.model;
 
 import java.util.regex.Pattern;
 
