@@ -73,7 +73,7 @@ public class WortEintrag {
         if (wort == null) {
             throw new IllegalArgumentException("Das Wort darf nicht null sein!");
         } else if (wort.length() < 2) {
-            throw new IllegalArgumentException("Das Wort muss mindesterns zwei Buchstaben haben!");
+            throw new IllegalArgumentException("Das Wort muss mindestens zwei Buchstaben haben!");
         }
         return true;
     }
