@@ -67,9 +67,8 @@ public class WortTrainer {
             throw new IllegalArgumentException("Die Wortliste darf nicht leer sein!");
         this.wortliste.clear();
         for (WortEintrag wortEintrag : wortliste) {
-            if (WortEintrag.checkWort(wortEintrag.getWort()) && WortEintrag.checkUrl(wortEintrag.getUrl())) {
-                wortliste.add(wortEintrag);
-            }
+            if (WortEintrag.checkWort(wortEintrag.getWort()) && WortEintrag.checkUrl(wortEintrag.getUrl()))
+                this.wortliste.add(wortEintrag);
         }
     }
 
