@@ -84,7 +84,7 @@ gradle test
 - **Build-System**: Gradle
 - **Versionskontrolle**: Git
 - **GUI**: JOptionPane
-- **Persistenz**: Java-Serialisierung (als Standard), unterstützt verschiedene Speicherformate
+- **Persistenz**: XML (als Standard), unterstützt verschiedene Speicherformate
 - **Test-Framework**: JUnit
 
 ## Hinweis für Anwender
