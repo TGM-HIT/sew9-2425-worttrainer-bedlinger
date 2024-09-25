@@ -2,6 +2,8 @@ package at.ac.tgm.bedlinger.persistenz;
 
 import at.ac.tgm.bedlinger.model.WortTrainer;
 
+import java.io.IOException;
+
 /**
  * Interface Persistenz, welches die Methoden save und load vorgibt für mögliche Implementierungen von einer
  * Persistenzklasse, bspw. JSON, XML, Serialisierung, etc.
@@ -10,13 +12,14 @@ import at.ac.tgm.bedlinger.model.WortTrainer;
  * @version 2024-09-25
  */
 public interface Persistenz {
+    String STANDARD_PATH = "B:\\Schule\\SEW\\worttrainer-bedlinger\\src\\main\\resources";
 
     /**
      * Speichert den WortTrainer in einer Datei, als Pfad wird der Standardpfad verwendet
      *
      * @param wortTrainer der zu speichernde WortTrainer
      */
-    void save(WortTrainer wortTrainer);
+    void save(WortTrainer wortTrainer) throws IOException;
 
     /**
      * Speichert den WortTrainer in einer Datei
