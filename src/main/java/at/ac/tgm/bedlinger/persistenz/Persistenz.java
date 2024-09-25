@@ -12,7 +12,20 @@ import java.io.IOException;
  * @version 2024-09-25
  */
 public interface Persistenz {
-    String STANDARD_PATH = "B:\\Schule\\SEW\\worttrainer-bedlinger\\src\\main\\resources";
+
+    /**
+     * Setzt den Standardpfad, wo die Datei gespeichert werden soll
+     *
+     * @param path der Standardpfad
+     */
+    void setStandardPath(String path);
+
+    /**
+     * Gibt den Standardpfad zurück
+     *
+     * @return der Standardpfad
+     */
+    String getStandardPath();
 
     /**
      * Speichert den WortTrainer in einer Datei, als Pfad wird der Standardpfad verwendet

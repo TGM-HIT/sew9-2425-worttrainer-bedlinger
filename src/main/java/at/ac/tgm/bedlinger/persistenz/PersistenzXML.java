@@ -15,6 +15,52 @@ import java.io.IOException;
  * @version 2024-09-25
  */
 public class PersistenzXML implements Persistenz {
+    private String standardPath;
+
+    /**
+     * Konstruktor, der den Standardpfad auf den Benutzerordner setzt
+     */
+    public PersistenzXML() {
+        StringBuilder path = new StringBuilder(System.getProperty("user.home"));
+        path.append("\\WortTrainer");
+        setStandardPath(path.toString());
+    }
+
+    /**
+     * Konsktruktor, der den Standardpfad auf den übergebenen Pfad setzt
+     *
+     * @param path der Standardpfad
+     */
+    public PersistenzXML(String path) {
+        setStandardPath(path);
+    }
+
+    /**
+     * Setzt den Standardpfad, wo die Datei gespeichert werden soll
+     *
+     * @param path der Standardpfad
+     */
+    @Override
+    public void setStandardPath(String path) {
+        if (path == null)
+            throw new IllegalArgumentException("Der Pfad darf nicht null sein");
+        if (path.isEmpty())
+            throw new IllegalArgumentException("Der Pfad darf nicht leer sein");
+        if (!new File(path).exists())
+            throw new IllegalArgumentException("Der Pfad existiert nicht");
+
+        this.standardPath = path;
+    }
+
+    /**
+     * Gibt den Standardpfad zurück
+     *
+     * @return der Standardpfad
+     */
+    @Override
+    public String getStandardPath() {
+        return this.standardPath;
+    }
 
     /**
      * Speichert den WortTrainer in einem XML, als Pfad wird der Standardpfad verwendet
@@ -23,7 +69,7 @@ public class PersistenzXML implements Persistenz {
      */
     @Override
     public void save(WortTrainer wortTrainer) throws IOException {
-        this.save(wortTrainer, STANDARD_PATH + "\\worttrainer.xml");
+        this.save(wortTrainer, getStandardPath() + "\\worttrainer.xml");
     }
 
     /**
@@ -51,7 +97,7 @@ public class PersistenzXML implements Persistenz {
      */
     @Override
     public WortTrainer load() throws IOException {
-        return this.load(STANDARD_PATH + "\\worttrainer.xml");
+        return this.load(getStandardPath() + "\\worttrainer.xml");
     }
 
     /**
