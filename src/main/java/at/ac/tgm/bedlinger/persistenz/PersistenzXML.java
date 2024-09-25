@@ -37,6 +37,7 @@ public class PersistenzXML implements Persistenz {
 
     /**
      * Setzt den Standardpfad, wo die Datei gespeichert werden soll
+     * Wenn der Pfad nicht existiert, wird er erstellt
      *
      * @param path der Standardpfad
      */
@@ -46,8 +47,12 @@ public class PersistenzXML implements Persistenz {
             throw new IllegalArgumentException("Der Pfad darf nicht null sein");
         if (path.isEmpty())
             throw new IllegalArgumentException("Der Pfad darf nicht leer sein");
-        if (!new File(path).exists())
-            throw new IllegalArgumentException("Der Pfad existiert nicht");
+        if (!new File(path).exists()) {
+            boolean created = new File(path).mkdirs();
+            if (!created)
+                throw new IllegalArgumentException("Der Pfad konnte nicht erstellt werden");
+        }
+
 
         this.standardPath = path;
     }

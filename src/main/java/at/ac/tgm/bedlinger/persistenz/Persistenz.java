@@ -15,6 +15,7 @@ public interface Persistenz {
 
     /**
      * Setzt den Standardpfad, wo die Datei gespeichert werden soll
+     * Wenn der Pfad nicht existiert, wird er erstellt
      *
      * @param path der Standardpfad
      */
