@@ -27,14 +27,14 @@ public interface Persistenz {
      * @param wortTrainer der zu speichernde WortTrainer
      * @param path        der Pfad, wo die Datei gespeichert werden soll
      */
-    void save(WortTrainer wortTrainer, String path);
+    void save(WortTrainer wortTrainer, String path) throws IOException;
 
     /**
      * Lädt den WortTrainer aus einer Datei, als Pfad wird der Standardpfad verwendet
      *
      * @return der geladene WortTrainer
      */
-    WortTrainer load();
+    WortTrainer load() throws IOException;
 
     /**
      * Lädt den WortTrainer aus einer Datei
@@ -42,5 +42,5 @@ public interface Persistenz {
      * @param path der Pfad, wo die Datei gespeichert ist
      * @return der geladene WortTrainer
      */
-    WortTrainer load(String path);
+    WortTrainer load(String path) throws IOException;
 }
