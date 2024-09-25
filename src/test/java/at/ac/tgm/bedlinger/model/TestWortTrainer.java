@@ -77,6 +77,7 @@ public class TestWortTrainer {
         Assertions.assertEquals(1, wortTrainer.getCounterAbgefragt());
         Assertions.assertEquals(1, wortTrainer.getCounterKorrekt());
         Assertions.assertEquals(0, wortTrainer.getCounterFalsch());
+        wortTrainer.setAktuellerWortEintragIndex(0);
         Assertions.assertFalse(wortTrainer.check("Katze"));
         Assertions.assertEquals(2, wortTrainer.getCounterAbgefragt());
         Assertions.assertEquals(1, wortTrainer.getCounterKorrekt());
