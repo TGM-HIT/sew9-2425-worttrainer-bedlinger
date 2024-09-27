@@ -21,7 +21,7 @@ public class WortEintrag {
      */
     public WortEintrag() {
         setWort("Hund");
-        setUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlfP2ySQQEN3_sTkKSyEDPwZHtTVF7oW8Nhg&s");
+        setUrl("https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_960_720.jpg");
     }
 
     /**
