@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,6 +19,8 @@ import java.util.List;
 public class TestPersistenzXML {
     private WortTrainer wortTrainer;
     private Persistenz persistenz;
+
+    private static final String PATH = "C:\\Users\\Public\\Desktop";
 
     @BeforeEach
     public void setUp() {
@@ -39,17 +42,15 @@ public class TestPersistenzXML {
         String correctPath = System.getProperty("user.home") + "\\WortTrainer";
         Assertions.assertEquals(correctPath, persistenz1.getStandardPath());
 
-        String path = "C:\\Users\\Public\\Desktop";
-        Persistenz persistenz2 = new PersistenzXML(path);
-        Assertions.assertEquals(path, persistenz2.getStandardPath());
+        Persistenz persistenz2 = new PersistenzXML(PATH);
+        Assertions.assertEquals(PATH, persistenz2.getStandardPath());
     }
 
     @Test
     @DisplayName("Testen des Setzens des Standardpfades")
     public void testSetStandardPath() {
-        String path = "C:\\Users\\Public\\Desktop";
-        this.persistenz.setStandardPath(path);
-        Assertions.assertEquals(path, this.persistenz.getStandardPath());
+        this.persistenz.setStandardPath(PATH);
+        Assertions.assertEquals(PATH, this.persistenz.getStandardPath());
 
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             this.persistenz.setStandardPath(null);
@@ -63,5 +64,35 @@ public class TestPersistenzXML {
             this.persistenz.setStandardPath("C:\\Users\\tgm\\Desktop");
         });
         Assertions.assertEquals("Der Pfad konnte nicht erstellt werden", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Testen des Speichern und Laden eines WortTrainers in einer XML-Datei")
+    public void testSaveAndLoadWortTrainer() {
+        System.out.println(this.persistenz.getStandardPath());
+        try {
+            this.persistenz.save(this.wortTrainer);
+            WortTrainer wortTrainer = this.persistenz.load();
+            Assertions.assertEquals(this.wortTrainer.getWortliste(), wortTrainer.getWortliste());
+            Assertions.assertEquals(this.wortTrainer.getAktuellerWortEintragIndex(),
+                    wortTrainer.getAktuellerWortEintragIndex());
+            Assertions.assertEquals(this.wortTrainer.getCounterAbgefragt(), wortTrainer.getCounterAbgefragt());
+            Assertions.assertEquals(this.wortTrainer.getCounterKorrekt(), wortTrainer.getCounterKorrekt());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        this.persistenz.setStandardPath(PATH);
+        try {
+            this.persistenz.save(this.wortTrainer);
+            WortTrainer wortTrainer = this.persistenz.load();
+            Assertions.assertEquals(this.wortTrainer.getWortliste(), wortTrainer.getWortliste());
+            Assertions.assertEquals(this.wortTrainer.getAktuellerWortEintragIndex(),
+                    wortTrainer.getAktuellerWortEintragIndex());
+            Assertions.assertEquals(this.wortTrainer.getCounterAbgefragt(), wortTrainer.getCounterAbgefragt());
+            Assertions.assertEquals(this.wortTrainer.getCounterKorrekt(), wortTrainer.getCounterKorrekt());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
