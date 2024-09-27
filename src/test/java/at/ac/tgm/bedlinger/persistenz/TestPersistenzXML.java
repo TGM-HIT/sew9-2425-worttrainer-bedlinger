@@ -20,8 +20,7 @@ import java.util.List;
 public class TestPersistenzXML {
     private WortTrainer wortTrainer;
     private Persistenz persistenz;
-
-    private static final String PATH = "C:\\Users\\Public\\Desktop";
+    private static final String PATH = System.getProperty("user.home") + "\\WortTrainerNewStandardPath";
 
     @BeforeEach
     public void setUp() {
@@ -75,7 +74,12 @@ public class TestPersistenzXML {
             this.persistenz.save(this.wortTrainer);
             Assertions.assertTrue(new File(this.persistenz.getStandardPath() + "\\worttrainer.xml").exists());
             WortTrainer wortTrainer = this.persistenz.load();
-            Assertions.assertEquals(this.wortTrainer.getWortliste(), wortTrainer.getWortliste());
+            for (int i = 0; i < this.wortTrainer.getWortliste().size(); i++) {
+                Assertions.assertEquals(this.wortTrainer.getWortliste().get(i).getWort(),
+                        wortTrainer.getWortliste().get(i).getWort());
+                Assertions.assertEquals(this.wortTrainer.getWortliste().get(i).getUrl(),
+                        wortTrainer.getWortliste().get(i).getUrl());
+            }
             Assertions.assertEquals(this.wortTrainer.getAktuellerWortEintragIndex(),
                     wortTrainer.getAktuellerWortEintragIndex());
             Assertions.assertEquals(this.wortTrainer.getCounterAbgefragt(), wortTrainer.getCounterAbgefragt());
@@ -89,7 +93,12 @@ public class TestPersistenzXML {
             this.persistenz.save(this.wortTrainer);
             Assertions.assertTrue(new File(this.persistenz.getStandardPath() + "\\worttrainer.xml").exists());
             WortTrainer wortTrainer = this.persistenz.load();
-            Assertions.assertEquals(this.wortTrainer.getWortliste(), wortTrainer.getWortliste());
+            for (int i = 0; i < this.wortTrainer.getWortliste().size(); i++) {
+                Assertions.assertEquals(this.wortTrainer.getWortliste().get(i).getWort(),
+                        wortTrainer.getWortliste().get(i).getWort());
+                Assertions.assertEquals(this.wortTrainer.getWortliste().get(i).getUrl(),
+                        wortTrainer.getWortliste().get(i).getUrl());
+            }
             Assertions.assertEquals(this.wortTrainer.getAktuellerWortEintragIndex(),
                     wortTrainer.getAktuellerWortEintragIndex());
             Assertions.assertEquals(this.wortTrainer.getCounterAbgefragt(), wortTrainer.getCounterAbgefragt());
