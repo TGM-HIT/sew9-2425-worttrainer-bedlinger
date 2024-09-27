@@ -9,12 +9,20 @@ import java.util.regex.Pattern;
  * und einem Wort, welches das Bild darstellt.
  *
  * @author Benjamin Edlinger
- * @version 2024-09-18
+ * @version 2024-09-27
  */
 @XmlRootElement(name = "wortEintrag")
 public class WortEintrag {
     private String wort;
     private String url;
+
+    /**
+     * Der Standardkonstruktor erstellt ein neues WortEintrag-Objekt.
+     */
+    public WortEintrag() {
+        setWort("Hund");
+        setUrl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlfP2ySQQEN3_sTkKSyEDPwZHtTVF7oW8Nhg&s");
+    }
 
     /**
      * Der Konstruktor erstellt ein neues WortEintrag-Objekt mit den gegebenen Werten.
