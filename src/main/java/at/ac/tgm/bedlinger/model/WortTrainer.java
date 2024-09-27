@@ -12,7 +12,7 @@ import java.util.List;
  * aktuellen WortEintrag und jeweils einen Counter für die Anzahl der abgefragten, richtigen und falschen Worte.
  *
  * @author Benjamin Edlinger
- * @version 2024-09-18
+ * @version 2024-09-27
  */
 @XmlRootElement(name = "WortTrainer")
 @XmlType(propOrder = {"wortliste", "counterAbgefragt", "counterKorrekt", "counterFalsch", "aktuellerWortEintragIndex"})

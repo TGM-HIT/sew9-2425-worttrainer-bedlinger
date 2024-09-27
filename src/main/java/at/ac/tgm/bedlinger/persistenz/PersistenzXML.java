@@ -13,7 +13,7 @@ import java.io.IOException;
  * Speichert einen WortTrainer in einer XML-Datei
  *
  * @author bedlinger
- * @version 2024-09-25
+ * @version 2024-09-27
  */
 public class PersistenzXML implements Persistenz {
     private String standardPath;

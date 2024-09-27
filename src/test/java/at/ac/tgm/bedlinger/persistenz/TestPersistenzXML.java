@@ -15,7 +15,7 @@ import java.util.List;
  * Testklasse für die Klasse PersistenzXML
  *
  * @author bedlinger
- * @version 2024-09-25
+ * @version 2024-09-27
  */
 public class TestPersistenzXML {
     private WortTrainer wortTrainer;

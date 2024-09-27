@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  * Testklasse für die Klasse WortEintrag
  *
  * @author Benjamin Edlinger
- * @version 2024-09-18
+ * @version 2024-09-27
  */
 public class TestWortEintrag {
 
