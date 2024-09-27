@@ -1,5 +1,7 @@
 package at.ac.tgm.bedlinger.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.regex.Pattern;
 
 /**
@@ -9,6 +11,7 @@ import java.util.regex.Pattern;
  * @author Benjamin Edlinger
  * @version 2024-09-18
  */
+@XmlRootElement(name = "wortEintrag")
 public class WortEintrag {
     private String wort;
     private String url;
@@ -39,6 +42,7 @@ public class WortEintrag {
      *
      * @return das festgelegte Wort für den Worteintrag
      */
+    @XmlElement(name = "wort")
     public String getWort() {
         return wort;
     }
@@ -58,6 +62,7 @@ public class WortEintrag {
      *
      * @return die festgelegte URL für den Worteintrag
      */
+    @XmlElement(name = "url")
     public String getUrl() {
         return url;
     }

@@ -1,5 +1,8 @@
 package at.ac.tgm.bedlinger.model;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +13,7 @@ import java.util.List;
  * @author Benjamin Edlinger
  * @version 2024-09-18
  */
+@XmlRootElement(name = "WortTrainer")
 public class WortTrainer {
     private final List<WortEintrag> wortliste;
     private int counterAbgefragt, counterKorrekt, counterFalsch, aktuellerWortEintragIndex;
@@ -77,6 +81,8 @@ public class WortTrainer {
      *
      * @return die Liste von WortEinträgen
      */
+    @XmlElementWrapper(name = "wortliste")
+    @XmlElement(name = "wortEintrag")
     public List<WortEintrag> getWortliste() {
         return wortliste;
     }
@@ -98,6 +104,7 @@ public class WortTrainer {
      *
      * @return der index für den aktuellen Worteintrag
      */
+    @XmlElement(name = "aktuellerWortEintragIndex")
     public int getAktuellerWortEintragIndex() {
         return aktuellerWortEintragIndex;
     }
@@ -119,6 +126,7 @@ public class WortTrainer {
      *
      * @return die Anzahl der abgefragten Worte
      */
+    @XmlElement(name = "counterAbgefragt")
     public int getCounterAbgefragt() {
         return counterAbgefragt;
     }
@@ -140,6 +148,7 @@ public class WortTrainer {
      *
      * @return die Anzahl korrekt eingegebenen Worte
      */
+    @XmlElement(name = "counterKorrekt")
     public int getCounterKorrekt() {
         return counterKorrekt;
     }
@@ -149,6 +158,7 @@ public class WortTrainer {
      *
      * @return die Anzahl der falsch eingegebenen Worte
      */
+    @XmlElement(name = "counterFalsch")
     public int getCounterFalsch() {
         return counterAbgefragt - counterKorrekt;
     }
