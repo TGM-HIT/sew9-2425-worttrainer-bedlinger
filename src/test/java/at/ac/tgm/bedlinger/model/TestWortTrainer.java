@@ -24,6 +24,7 @@ public class TestWortTrainer {
         Assertions.assertEquals(0, wortTrainer.getCounterFalsch());
         Assertions.assertEquals(0, wortTrainer.getAktuellerWortEintragIndex());
         Assertions.assertTrue(wortTrainer.getWortliste().isEmpty());
+        Assertions.assertFalse(wortTrainer.getVorherigerVersuchKorrekt());
     }
 
     @Test
@@ -45,6 +46,8 @@ public class TestWortTrainer {
         Assertions.assertEquals(5, wortTrainer1.getCounterAbgefragt());
         Assertions.assertEquals(3, wortTrainer1.getCounterKorrekt());
         Assertions.assertEquals(2, wortTrainer1.getCounterFalsch());
+        wortTrainer1.setVorherigerVersuchKorrekt(true);
+        Assertions.assertTrue(wortTrainer1.getVorherigerVersuchKorrekt());
 
         WortTrainer wortTrainer2 = new WortTrainer();
         Exception e1 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer2.setWortliste(null));
