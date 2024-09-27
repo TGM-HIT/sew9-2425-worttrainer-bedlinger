@@ -12,17 +12,20 @@ import java.util.List;
  * aktuellen WortEintrag und jeweils einen Counter für die Anzahl der abgefragten, richtigen und falschen Worte.
  *
  * @author Benjamin Edlinger
- * @version 2024-09-27
+ * @version 2024-09-28
  */
 @XmlRootElement(name = "WortTrainer")
-@XmlType(propOrder = {"wortliste", "counterAbgefragt", "counterKorrekt", "counterFalsch", "aktuellerWortEintragIndex"})
+@XmlType(propOrder = {"wortliste", "counterAbgefragt", "counterKorrekt", "counterFalsch", "aktuellerWortEintragIndex"
+        , "vorherigerVersuchKorrekt"})
 public class WortTrainer {
     private final List<WortEintrag> wortliste;
     private int counterAbgefragt, counterKorrekt, counterFalsch, aktuellerWortEintragIndex;
+    private boolean vorherigerVersuchKorrekt;
 
     /**
      * Der Konstruktor erstellt ein neues WortTrainer-Objekt mit einer leeren Wortliste.
-     * Die Counter werden auf 0 gesetzt, sowie der aktuelle WortEintrag.
+     * Die Counter werden auf 0 gesetzt, sowie der index des aktuellen Worteintrags.
+     * Der vorherige Versuch wird auf falsch gesetzt.
      */
     public WortTrainer() {
         wortliste = new ArrayList<>();
@@ -30,6 +33,7 @@ public class WortTrainer {
         counterKorrekt = 0;
         counterFalsch = 0;
         aktuellerWortEintragIndex = (int) (Math.random() * wortliste.size());
+        vorherigerVersuchKorrekt = false;
     }
 
     /**
@@ -163,5 +167,24 @@ public class WortTrainer {
     @XmlElement(name = "counterFalsch")
     public int getCounterFalsch() {
         return counterAbgefragt - counterKorrekt;
+    }
+
+    /**
+     * Setzt die korrekte Eingabe des vorherigen Versuchs.
+     *
+     * @param k true, wenn der vorherige Versuch korrekt war, ansonsten false
+     */
+    public void setVorherigerVersuchKorrekt(boolean k) {
+        vorherigerVersuchKorrekt = k;
+    }
+
+    /**
+     * Gibt zurück, ob der vorherige Versuch korrekt war.
+     *
+     * @return true, wenn der vorherige Versuch korrekt war, ansonsten false
+     */
+    @XmlElement(name = "vorherigerVersuchKorrekt")
+    public boolean getVorherigerVersuchKorrekt() {
+        return vorherigerVersuchKorrekt;
     }
 }
