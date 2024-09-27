@@ -5,6 +5,7 @@ import at.ac.tgm.bedlinger.model.WortTrainer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 
@@ -74,7 +75,7 @@ public class PersistenzXML implements Persistenz {
      */
     @Override
     public void save(WortTrainer wortTrainer) throws IOException {
-        this.save(wortTrainer, getStandardPath() + "\\worttrainer.xml");
+        this.save(wortTrainer, getStandardPath());
     }
 
     /**
@@ -89,9 +90,10 @@ public class PersistenzXML implements Persistenz {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(wortTrainer, new File(path));
+            File file = new File(path, "worttrainer.xml");
+            marshaller.marshal(wortTrainer, file);
         } catch (JAXBException e) {
-            throw new IOException("Fehler beim Speichern des WortTrainers");
+            throw new IOException("Fehler beim Speichern des WortTrainers", e);
         }
     }
 
@@ -102,7 +104,7 @@ public class PersistenzXML implements Persistenz {
      */
     @Override
     public WortTrainer load() throws IOException {
-        return this.load(getStandardPath() + "\\worttrainer.xml");
+        return this.load(getStandardPath());
     }
 
     /**
@@ -115,9 +117,11 @@ public class PersistenzXML implements Persistenz {
     public WortTrainer load(String path) throws IOException {
         try {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
-            return (WortTrainer) context.createUnmarshaller().unmarshal(new File(path));
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            File file = new File(path, "worttrainer.xml");
+            return (WortTrainer) unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
-            throw new IOException("Fehler beim Laden des WortTrainers");
+            throw new IOException("Fehler beim Laden des WortTrainers", e);
         }
     }
 }
