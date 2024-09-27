@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -72,6 +73,7 @@ public class TestPersistenzXML {
         System.out.println(this.persistenz.getStandardPath());
         try {
             this.persistenz.save(this.wortTrainer);
+            Assertions.assertTrue(new File(this.persistenz.getStandardPath() + "\\worttrainer.xml").exists());
             WortTrainer wortTrainer = this.persistenz.load();
             Assertions.assertEquals(this.wortTrainer.getWortliste(), wortTrainer.getWortliste());
             Assertions.assertEquals(this.wortTrainer.getAktuellerWortEintragIndex(),
@@ -85,6 +87,7 @@ public class TestPersistenzXML {
         this.persistenz.setStandardPath(PATH);
         try {
             this.persistenz.save(this.wortTrainer);
+            Assertions.assertTrue(new File(this.persistenz.getStandardPath() + "\\worttrainer.xml").exists());
             WortTrainer wortTrainer = this.persistenz.load();
             Assertions.assertEquals(this.wortTrainer.getWortliste(), wortTrainer.getWortliste());
             Assertions.assertEquals(this.wortTrainer.getAktuellerWortEintragIndex(),
