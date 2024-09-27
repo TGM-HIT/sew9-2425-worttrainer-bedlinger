@@ -15,6 +15,9 @@ public class TestWortEintrag {
     @Test
     @DisplayName("Testen der Erstellung eines WortEintrags")
     public void testCreateWortEintrag() {
+        WortEintrag wortEintrag = new WortEintrag();
+        Assertions.assertEquals("Hund", wortEintrag.getWort());
+        Assertions.assertEquals("https://cdn.pixabay.com/photo/2023/08/18/15/02/dog-8198719_960_720.jpg", wortEintrag.getUrl());
         Assertions.assertDoesNotThrow(() -> new WortEintrag("Hund", "https://www.tiere.de/hund.jpg"));
 
         Throwable exceptionWort1 = Assertions.assertThrows(IllegalArgumentException.class, () -> new WortEintrag(null,
