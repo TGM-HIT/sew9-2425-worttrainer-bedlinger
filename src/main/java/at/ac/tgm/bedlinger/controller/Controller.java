@@ -3,6 +3,7 @@ package at.ac.tgm.bedlinger.controller;
 import at.ac.tgm.bedlinger.model.WortTrainer;
 import at.ac.tgm.bedlinger.persistenz.Persistenz;
 import at.ac.tgm.bedlinger.persistenz.PersistenzXML;
+import at.ac.tgm.bedlinger.view.View;
 
 import javax.swing.*;
 
@@ -39,6 +40,10 @@ public class Controller {
         } catch (Exception e) {
             wortTrainer = new WortTrainer();
         }
+        view = new View(this);
+        view.setCounter(wortTrainer.getCounterAbgefragt(), wortTrainer.getCounterKorrekt(), wortTrainer.getCounterFalsch());
+        view.setVorherigerVersuch(wortTrainer.getVorherigerVersuchKorrekt());
+        view.setBild(wortTrainer.getAktuellerWortEintrag().getUrl());
     }
 
     /**
@@ -51,8 +56,11 @@ public class Controller {
         boolean result = wortTrainer.check(wort);
         view.setCounter(wortTrainer.getCounterAbgefragt(), wortTrainer.getCounterKorrekt(), wortTrainer.getCounterFalsch());
         view.setVorherigerVersuch(wortTrainer.getVorherigerVersuchKorrekt());
-        if (result)
-            view.setImg(wortTrainer.getAktuellerWortEintrag().getUrl());
+        if (result) {
+            view.setBild(wortTrainer.getAktuellerWortEintrag().getUrl());
+        } else {
+            view.setEingabe("");
+        }
     }
 
     /**
