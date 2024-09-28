@@ -15,7 +15,7 @@ import java.util.List;
  * Testklasse für die Klasse PersistenzXML
  *
  * @author bedlinger
- * @version 2024-09-27
+ * @version 2024-09-28
  */
 public class TestPersistenzXML {
     private WortTrainer wortTrainer;
@@ -106,5 +106,14 @@ public class TestPersistenzXML {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Exception e1 = Assertions.assertThrows(IllegalArgumentException.class, () -> this.persistenz.save(null));
+        Assertions.assertEquals("Der WortTrainer darf nicht null sein", e1.getMessage());
+        Exception e2 = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> this.persistenz.save(this.wortTrainer, null));
+        Assertions.assertEquals("Der Pfad darf nicht null sein", e2.getMessage());
+        Exception e3 = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> this.persistenz.load(null));
+        Assertions.assertEquals("Der Pfad darf nicht null sein", e3.getMessage());
     }
 }

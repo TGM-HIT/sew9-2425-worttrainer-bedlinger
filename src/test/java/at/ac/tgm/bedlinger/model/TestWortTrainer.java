@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class TestWortTrainer {
         Assertions.assertEquals(0, wortTrainer.getAktuellerWortEintragIndex());
         Assertions.assertFalse(wortTrainer.getWortliste().isEmpty());
         Assertions.assertFalse(wortTrainer.getVorherigerVersuchKorrekt());
+        Assertions.assertEquals("at.ac.tgm.bedlinger.persistenz.PersistenzXML", wortTrainer.getPersistenzClassName());
     }
 
     @Test
@@ -63,6 +65,13 @@ public class TestWortTrainer {
         Assertions.assertEquals("Der Counter für die abgefragten Worte darf nicht negativ sein!", e5.getMessage());
         Exception e6 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer2.setCounterKorrekt(-1));
         Assertions.assertEquals("Der Counter für die korrekt eingegebenen Worte darf nicht negativ sein!", e6.getMessage());
+        Exception e7 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer2.setPersistenz(null));
+        Assertions.assertEquals("Die Persistenz darf nicht null sein!", e7.getMessage());
+        Exception e8 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer2.setPersistenzClassName(null));
+        Assertions.assertEquals("Der Klassenname der Persistenz darf nicht null sein!", e8.getMessage());
+        Exception e9 = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> wortTrainer2.setPersistenzClassName("PersistenzJson"));
+        Assertions.assertEquals("Ungültige Persistenzklasse: PersistenzJson", e9.getMessage());
     }
 
     @Test
@@ -85,5 +94,40 @@ public class TestWortTrainer {
         Assertions.assertEquals(2, wortTrainer.getCounterAbgefragt());
         Assertions.assertEquals(1, wortTrainer.getCounterKorrekt());
         Assertions.assertEquals(1, wortTrainer.getCounterFalsch());
+    }
+
+    @Test
+    @DisplayName("Testen des Speicherns und Ladens")
+    public void testSaveAndLoad() throws IOException {
+        WortTrainer wortTrainer = new WortTrainer();
+        List<WortEintrag> wortEintragList = new ArrayList<>();
+        WortEintrag wortEintrag1 = new WortEintrag("Hund", "https://www.google.com");
+        WortEintrag wortEintrag2 = new WortEintrag("Katze", "https://www.google.com");
+        wortEintragList.add(wortEintrag1);
+        wortEintragList.add(wortEintrag2);
+        wortTrainer.setWortliste(wortEintragList);
+        wortTrainer.setAktuellerWortEintragIndex(0);
+        wortTrainer.setCounterAbgefragt(5);
+        wortTrainer.setCounterKorrekt(3);
+        wortTrainer.setVorherigerVersuchKorrekt(true);
+        wortTrainer.save();
+        WortTrainer wortTrainer2 = new WortTrainer();
+        wortTrainer2.load();
+        Assertions.assertEquals(wortTrainer.getCounterAbgefragt(), wortTrainer2.getCounterAbgefragt());
+        Assertions.assertEquals(wortTrainer.getCounterKorrekt(), wortTrainer2.getCounterKorrekt());
+        Assertions.assertEquals(wortTrainer.getCounterFalsch(), wortTrainer2.getCounterFalsch());
+        Assertions.assertEquals(wortTrainer.getAktuellerWortEintragIndex(), wortTrainer2.getAktuellerWortEintragIndex());
+        Assertions.assertEquals(wortTrainer.getVorherigerVersuchKorrekt(), wortTrainer2.getVorherigerVersuchKorrekt());
+        for (int i = 0; i < wortTrainer.getWortliste().size(); i++) {
+            Assertions.assertEquals(wortTrainer.getWortliste().get(i).getWort(),
+                    wortTrainer2.getWortliste().get(i).getWort());
+            Assertions.assertEquals(wortTrainer.getWortliste().get(i).getUrl(),
+                    wortTrainer2.getWortliste().get(i).getUrl());
+        }
+
+        Exception e1 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer2.save(null));
+        Assertions.assertEquals("Der Pfad darf nicht null sein!", e1.getMessage());
+        Exception e2 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer2.load(null));
+        Assertions.assertEquals("Der Pfad darf nicht null sein!", e2.getMessage());
     }
 }
