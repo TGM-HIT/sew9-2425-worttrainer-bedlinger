@@ -51,8 +51,10 @@ public class WortTrainer {
         if (wort.equals(wortliste.get(aktuellerWortEintragIndex).getWort())) {
             counterKorrekt++;
             aktuellerWortEintragIndex = (int) (Math.random() * wortliste.size());
+            setVorherigerVersuchKorrekt(true);
             return true;
         } else {
+            setVorherigerVersuchKorrekt(false);
             return false;
         }
     }
