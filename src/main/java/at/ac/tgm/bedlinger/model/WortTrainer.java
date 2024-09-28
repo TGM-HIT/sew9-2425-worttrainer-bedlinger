@@ -3,10 +3,7 @@ package at.ac.tgm.bedlinger.model;
 import at.ac.tgm.bedlinger.persistenz.Persistenz;
 import at.ac.tgm.bedlinger.persistenz.PersistenzXML;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +32,8 @@ public class WortTrainer {
      * Als Standard-Persistenz wird die PersistenzXML verwendet.
      */
     public WortTrainer() {
-        setWortliste(new ArrayList<>());
+        wortliste = new ArrayList<>();
+        wortliste.add(new WortEintrag());
         setAktuellerWortEintragIndex((int) (Math.random() * wortliste.size()));
         setCounterAbgefragt(0);
         setCounterKorrekt(0);
@@ -82,7 +80,7 @@ public class WortTrainer {
             throw new IllegalArgumentException("Die Wortliste darf nicht null sein!");
         if (wortliste.isEmpty())
             throw new IllegalArgumentException("Die Wortliste darf nicht leer sein!");
-        this.wortliste.clear();
+        this.wortliste = new ArrayList<>();
         for (WortEintrag wortEintrag : wortliste) {
             if (WortEintrag.checkWort(wortEintrag.getWort()) && WortEintrag.checkUrl(wortEintrag.getUrl()))
                 this.wortliste.add(wortEintrag);
@@ -193,6 +191,7 @@ public class WortTrainer {
      *
      * @return die Persistenz, die verwendet wird
      */
+    @XmlTransient
     public Persistenz getPersistenz() {
         return persistenz;
     }
