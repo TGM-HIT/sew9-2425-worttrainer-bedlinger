@@ -2,9 +2,13 @@ package at.ac.tgm.bedlinger.view;
 
 import at.ac.tgm.bedlinger.controller.Controller;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 /**
  * Repräsentiert die View des Programms, mittels Java Swing
@@ -104,7 +108,12 @@ public class View extends JFrame {
      * @param url URL des Bildes
      */
     public void setBild(String url) {
-        lBild.setIcon(new ImageIcon(url));
+        try {
+            URI u = new URI(url);
+            lBild.setIcon(new ImageIcon(ImageIO.read(u.toURL())));
+        } catch (IOException | URISyntaxException _) {
+
+        }
     }
 
     /**
