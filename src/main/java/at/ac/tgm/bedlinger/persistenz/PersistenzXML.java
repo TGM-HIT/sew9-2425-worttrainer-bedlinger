@@ -86,6 +86,10 @@ public class PersistenzXML implements Persistenz {
      */
     @Override
     public void save(WortTrainer wortTrainer, String path) throws IOException {
+        if (wortTrainer == null)
+            throw new IllegalArgumentException("Der WortTrainer darf nicht null sein");
+        if (path == null)
+            throw new IllegalArgumentException("Der Pfad darf nicht null sein");
         try {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Marshaller marshaller = context.createMarshaller();
@@ -115,6 +119,8 @@ public class PersistenzXML implements Persistenz {
      */
     @Override
     public WortTrainer load(String path) throws IOException {
+        if (path == null)
+            throw new IllegalArgumentException("Der Pfad darf nicht null sein");
         try {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();

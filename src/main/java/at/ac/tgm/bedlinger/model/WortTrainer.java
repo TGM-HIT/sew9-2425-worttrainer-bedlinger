@@ -259,6 +259,8 @@ public class WortTrainer {
      * @throws IOException wenn ein Fehler beim Speichern auftritt
      */
     public void save(String path) throws IOException {
+        if (path == null)
+            throw new IllegalArgumentException("Der Pfad darf nicht null sein!");
         persistenz.save(this, path);
     }
 
@@ -284,6 +286,8 @@ public class WortTrainer {
      * @throws IOException wenn ein Fehler beim Laden auftritt
      */
     public void load(String path) throws IOException {
+        if (path == null)
+            throw new IllegalArgumentException("Der Pfad darf nicht null sein!");
         WortTrainer wortTrainer = persistenz.load(path);
         setWortliste(wortTrainer.getWortliste());
         setAktuellerWortEintragIndex(wortTrainer.getAktuellerWortEintragIndex());
