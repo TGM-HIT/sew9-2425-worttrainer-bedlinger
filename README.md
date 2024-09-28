@@ -9,7 +9,7 @@ wurde. Zusätzlich wird eine Statistik geführt, die das Verhältnis von richtig
 
 Diese Applikation wurde unter Verwendung moderner Softwareentwicklungsmethoden entwickelt, insbesondere durch den
 Einsatz von **Gradle** als Build-System und der Verwendung von **Git** für die Versionskontrolle. Die Implementierung
-ist in **Java** erfolgt und die Benutzeroberfläche wird über **JOptionPane** bereitgestellt.
+ist in **Java** erfolgt und die Benutzeroberfläche wird über **Swing** bereitgestellt.
 
 ## Features
 
@@ -32,7 +32,7 @@ ist in **Java** erfolgt und die Benutzeroberfläche wird über **JOptionPane** b
       unterschiedliche Speicherstrategien zu implementieren, um die Persistierung flexibel zu gestalten.
 
 4. **Grafische Oberfläche (GUI)**:
-    - Über **JOptionPane** wird eine einfache Benutzeroberfläche zur Verfügung gestellt.
+   - Über **Swing** wird eine einfache Benutzeroberfläche zur Verfügung gestellt.
     - Der Benutzer sieht die aktuelle Statistik und das zu ratende Bild und gibt dann das Wort über eine
       Eingabeaufforderung ein.
     - Die Anwendung startet mit der geladenen Sitzung (falls vorhanden) oder mit einem neuen Worttrainer mit
@@ -83,7 +83,7 @@ gradle test
 - **Programmiersprache**: Java
 - **Build-System**: Gradle
 - **Versionskontrolle**: Git
-- **GUI**: JOptionPane
+- **GUI**: Swing
 - **Persistenz**: XML (als Standard), unterstützt verschiedene Speicherformate
 - **Test-Framework**: JUnit
 
