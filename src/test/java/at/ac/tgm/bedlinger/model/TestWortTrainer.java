@@ -23,7 +23,7 @@ public class TestWortTrainer {
         Assertions.assertEquals(0, wortTrainer.getCounterKorrekt());
         Assertions.assertEquals(0, wortTrainer.getCounterFalsch());
         Assertions.assertEquals(0, wortTrainer.getAktuellerWortEintragIndex());
-        Assertions.assertTrue(wortTrainer.getWortliste().isEmpty());
+        Assertions.assertFalse(wortTrainer.getWortliste().isEmpty());
         Assertions.assertFalse(wortTrainer.getVorherigerVersuchKorrekt());
     }
 
