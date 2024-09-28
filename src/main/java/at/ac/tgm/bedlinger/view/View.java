@@ -52,7 +52,7 @@ public class View extends JFrame {
         lCounterFalsch = new JLabel("0");
         JLabel lVorheriger = new JLabel("Vorheriger Versuch: ", SwingConstants.RIGHT);
         lVorherigerVersuch = new JLabel("Falsch");
-        JPanel bottom = new JPanel(new GridLayout(3, 2, 5, 5));
+        JPanel bottom = new JPanel(new GridLayout(1, 8, 5, 5));
         bottom.add(lAbgefragt);
         bottom.add(lCounterAbgefragt);
         bottom.add(lKorrekt);
@@ -72,7 +72,7 @@ public class View extends JFrame {
         });
 
         this.pack();
-        this.setBounds(300, 100, 1000, 600);
+        this.setBounds(300, 100, 1500, 600);
         this.setVisible(true);
     }
 
