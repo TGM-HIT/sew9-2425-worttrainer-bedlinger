@@ -18,6 +18,11 @@ public class View extends JFrame {
     private JTextField tfEingabe;
     private JLabel lBild, lCounterAbgefragt, lCounterKorrekt, lCounterFalsch, lVorherigerVersuch;
 
+    /**
+     * Erstellt die View des Programms
+     *
+     * @param controller Controller des Programms
+     */
     public View(Controller controller) {
         if (controller == null)
             throw new IllegalArgumentException("Controller darf nicht null sein");
@@ -71,20 +76,42 @@ public class View extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Setzt die Counter der View
+     *
+     * @param abgefragt die Anzahl der abgefragten Wörter
+     * @param korrekt   die Anzahl der korrekten Antworten
+     * @param falsch    die Anzahl der falschen Antworten
+     */
     public void setCounter(int abgefragt, int korrekt, int falsch) {
         lCounterAbgefragt.setText(String.valueOf(abgefragt));
         lCounterKorrekt.setText(String.valueOf(korrekt));
         lCounterFalsch.setText(String.valueOf(falsch));
     }
 
+    /**
+     * Setzt den vorherigen Versuch
+     *
+     * @param korrekt ob der vorherige Versuch korrekt war
+     */
     public void setVorherigerVersuch(boolean korrekt) {
         lVorherigerVersuch.setText(korrekt ? "Korrekt" : "Falsch");
     }
 
+    /**
+     * Setzt das Bild der View
+     *
+     * @param url URL des Bildes
+     */
     public void setBild(String url) {
         lBild.setIcon(new ImageIcon(url));
     }
 
+    /**
+     * Setzt die Eingabe der View
+     *
+     * @param eingabe die Eingabe
+     */
     public void setEingabe(String eingabe) {
         tfEingabe.setText(eingabe);
     }
