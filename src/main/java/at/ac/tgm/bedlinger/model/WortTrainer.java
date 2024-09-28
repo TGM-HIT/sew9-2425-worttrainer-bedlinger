@@ -1,9 +1,13 @@
 package at.ac.tgm.bedlinger.model;
 
+import at.ac.tgm.bedlinger.persistenz.Persistenz;
+import at.ac.tgm.bedlinger.persistenz.PersistenzXML;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,24 +20,27 @@ import java.util.List;
  */
 @XmlRootElement(name = "WortTrainer")
 @XmlType(propOrder = {"wortliste", "counterAbgefragt", "counterKorrekt", "counterFalsch", "aktuellerWortEintragIndex"
-        , "vorherigerVersuchKorrekt"})
+        , "vorherigerVersuchKorrekt", "persistenzClassName"})
 public class WortTrainer {
-    private final List<WortEintrag> wortliste;
-    private int counterAbgefragt, counterKorrekt, counterFalsch, aktuellerWortEintragIndex;
+    private List<WortEintrag> wortliste;
+    private int counterAbgefragt, counterKorrekt, aktuellerWortEintragIndex;
     private boolean vorherigerVersuchKorrekt;
+    private Persistenz persistenz;
+    private String persistenzClassName;
 
     /**
      * Der Konstruktor erstellt ein neues WortTrainer-Objekt mit einer leeren Wortliste.
      * Die Counter werden auf 0 gesetzt, sowie der index des aktuellen Worteintrags.
      * Der vorherige Versuch wird auf falsch gesetzt.
+     * Als Standard-Persistenz wird die PersistenzXML verwendet.
      */
     public WortTrainer() {
-        wortliste = new ArrayList<>();
-        counterAbgefragt = 0;
-        counterKorrekt = 0;
-        counterFalsch = 0;
-        aktuellerWortEintragIndex = (int) (Math.random() * wortliste.size());
-        vorherigerVersuchKorrekt = false;
+        setWortliste(new ArrayList<>());
+        setAktuellerWortEintragIndex((int) (Math.random() * wortliste.size()));
+        setCounterAbgefragt(0);
+        setCounterKorrekt(0);
+        setPersistenz(new PersistenzXML());
+        setVorherigerVersuchKorrekt(false);
     }
 
     /**
@@ -170,6 +177,55 @@ public class WortTrainer {
     }
 
     /**
+     * Setzt die Persistenz, die verwendet werden soll und speichert den Klassennamen der Persistenz.
+     *
+     * @param p die Persistenz, die verwendet werden soll
+     */
+    public void setPersistenz(Persistenz p) {
+        if (p == null)
+            throw new IllegalArgumentException("Die Persistenz darf nicht null sein!");
+        persistenz = p;
+        persistenzClassName = p.getClass().getName();
+    }
+
+    /**
+     * Gibt die Persistenz zurück, die verwendet wird.
+     *
+     * @return die Persistenz, die verwendet wird
+     */
+    public Persistenz getPersistenz() {
+        return persistenz;
+    }
+
+    /**
+     * Setzt den Klassennamen der Persistenz, die verwendet werden soll.
+     * Und ändert die Persistenz entsprechend.
+     *
+     * @param n der Klassenname der Persistenz
+     */
+    public void setPersistenzClassName(String n) {
+        if (n == null)
+            throw new IllegalArgumentException("Der Klassenname der Persistenz darf nicht null sein!");
+        try {
+            Class<?> clazz = Class.forName(n);
+            persistenz = (Persistenz) clazz.getDeclaredConstructor().newInstance();
+            persistenzClassName = n;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Ungültige Persistenzklasse: " + n, e);
+        }
+    }
+
+    /**
+     * Gibt den Klassennamen der Persistenz zurück.
+     *
+     * @return der Klassennamen der Persistenz
+     */
+    @XmlElement(name = "persistenzClassName")
+    public String getPersistenzClassName() {
+        return persistenzClassName;
+    }
+
+    /**
      * Setzt die korrekte Eingabe des vorherigen Versuchs.
      *
      * @param k true, wenn der vorherige Versuch korrekt war, ansonsten false
@@ -186,5 +242,55 @@ public class WortTrainer {
     @XmlElement(name = "vorherigerVersuchKorrekt")
     public boolean getVorherigerVersuchKorrekt() {
         return vorherigerVersuchKorrekt;
+    }
+
+    /**
+     * Speichert den aktuellen Zustand des WortTrainers.
+     *
+     * @throws IOException wenn ein Fehler beim Speichern auftritt
+     */
+    public void save() throws IOException {
+        persistenz.save(this);
+    }
+
+    /**
+     * Speichert den aktuellen Zustand des WortTrainers in einer Datei.
+     *
+     * @param path der Pfad, wo die Datei gespeichert werden soll
+     * @throws IOException wenn ein Fehler beim Speichern auftritt
+     */
+    public void save(String path) throws IOException {
+        persistenz.save(this, path);
+    }
+
+    /**
+     * Lädt den Zustand des WortTrainers.
+     *
+     * @throws IOException wenn ein Fehler beim Laden auftritt
+     */
+    public void load() throws IOException {
+        WortTrainer wortTrainer = persistenz.load();
+        setWortliste(wortTrainer.getWortliste());
+        setAktuellerWortEintragIndex(wortTrainer.getAktuellerWortEintragIndex());
+        setCounterAbgefragt(wortTrainer.getCounterAbgefragt());
+        setCounterKorrekt(wortTrainer.getCounterKorrekt());
+        setVorherigerVersuchKorrekt(wortTrainer.getVorherigerVersuchKorrekt());
+        setPersistenzClassName(wortTrainer.getPersistenzClassName());
+    }
+
+    /**
+     * Lädt den Zustand des WortTrainers aus einer Datei.
+     *
+     * @param path der Pfad, wo die Datei gespeichert ist
+     * @throws IOException wenn ein Fehler beim Laden auftritt
+     */
+    public void load(String path) throws IOException {
+        WortTrainer wortTrainer = persistenz.load(path);
+        setWortliste(wortTrainer.getWortliste());
+        setAktuellerWortEintragIndex(wortTrainer.getAktuellerWortEintragIndex());
+        setCounterAbgefragt(wortTrainer.getCounterAbgefragt());
+        setCounterKorrekt(wortTrainer.getCounterKorrekt());
+        setVorherigerVersuchKorrekt(wortTrainer.getVorherigerVersuchKorrekt());
+        setPersistenzClassName(wortTrainer.getPersistenzClassName());
     }
 }
