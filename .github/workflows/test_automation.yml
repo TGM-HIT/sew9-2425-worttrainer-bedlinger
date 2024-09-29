@@ -28,6 +28,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Ausführbarkeit von Gradle Wrapper sicherstellen
+        run: chmod +x ./gradlew
+
       - name: Build mit Gradle
         run: ./gradlew build
 
