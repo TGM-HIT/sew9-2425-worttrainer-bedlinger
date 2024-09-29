@@ -65,7 +65,9 @@ public class TestPersistenzXML {
         System.out.println(this.persistenz.getStandardPath());
         try {
             this.persistenz.save(this.wortTrainer);
-            Assertions.assertTrue(new File(this.persistenz.getStandardPath() + "\\worttrainer.xml").exists());
+            // Assertions.assertTrue(new File(this.persistenz.getStandardPath() + "\\worttrainer.xml").exists());
+            String FileLocation = Paths.get(this.persistenz.getStandardPath(), "worttrainer.xml").toString();
+            Assertions.assertTrue(new File(FileLocation).exists());
             WortTrainer wortTrainer = this.persistenz.load();
             for (int i = 0; i < this.wortTrainer.getWortliste().size(); i++) {
                 Assertions.assertEquals(this.wortTrainer.getWortliste().get(i).getWort(),
