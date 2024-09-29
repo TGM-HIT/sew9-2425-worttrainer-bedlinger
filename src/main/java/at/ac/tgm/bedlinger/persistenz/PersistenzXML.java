@@ -23,7 +23,7 @@ public class PersistenzXML implements Persistenz {
      * Konstruktor, der den Standardpfad auf den Benutzerordner setzt
      */
     public PersistenzXML() {
-        setStandardPath(Paths.get(System.getProperty("user.home"), "WortTrainer").toString());
+        setStandardPath(Paths.get(System.getProperty("user.home"), "WortTrainer", "worttrainer.xml").toString());
     }
 
     /**
@@ -93,7 +93,7 @@ public class PersistenzXML implements Persistenz {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            File file = new File(path, "worttrainer.xml");
+            File file = new File(path);
             marshaller.marshal(wortTrainer, file);
         } catch (JAXBException e) {
             throw new IOException("Fehler beim Speichern des WortTrainers", e);
@@ -123,7 +123,7 @@ public class PersistenzXML implements Persistenz {
         try {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            File file = new File(path, "worttrainer.xml");
+            File file = new File(path);
             return (WortTrainer) unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
             throw new IOException("Fehler beim Laden des WortTrainers", e);
