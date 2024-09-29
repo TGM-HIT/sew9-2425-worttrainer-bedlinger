@@ -11,7 +11,7 @@ import java.util.List;
  * Testklasse für die Klasse WortTrainer
  *
  * @author Benjamin Edlinger
- * @version 2024-09-28
+ * @version 2024-09-29
  */
 public class TestWortTrainer {
 
@@ -85,5 +85,33 @@ public class TestWortTrainer {
         Assertions.assertEquals(2, wortTrainer.getCounterAbgefragt());
         Assertions.assertEquals(1, wortTrainer.getCounterKorrekt());
         Assertions.assertEquals(1, wortTrainer.getCounterFalsch());
+    }
+
+    @Test
+    @DisplayName("Testen des Hinzufügens eines WortEintrags")
+    public void testAddWortEintrag() {
+        WortTrainer wortTrainer = new WortTrainer();
+        List<WortEintrag> wortEintragList = new ArrayList<>();
+        WortEintrag wortEintrag1 = new WortEintrag("Hund", "https://www.google.com");
+        WortEintrag wortEintrag2 = new WortEintrag("Katze", "https://www.google.com");
+        wortEintragList.add(wortEintrag1);
+        wortEintragList.add(wortEintrag2);
+        wortTrainer.setWortliste(wortEintragList);
+        wortTrainer.setAktuellerWortEintragIndex(0);
+        wortTrainer.addWortEintrag("Hund", "https://www.google.com");
+        Assertions.assertEquals(3, wortTrainer.getWortliste().size());
+        wortTrainer.addWortEintrag("Hund", "https://www.google.com");
+        Assertions.assertEquals(4, wortTrainer.getWortliste().size());
+        wortTrainer.addWortEintrag("Hund", "https://www.google.com");
+        Assertions.assertEquals(5, wortTrainer.getWortliste().size());
+
+        Exception e1 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer.addWortEintrag(null, "https://www.google.com"));
+        Assertions.assertEquals("Das Wort darf nicht null sein!", e1.getMessage());
+        Exception e2 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer.addWortEintrag("H", "https://www.google.com"));
+        Assertions.assertEquals("Das Wort muss mindestens zwei Buchstaben haben!", e2.getMessage());
+        Exception e3 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer.addWortEintrag("Hund", null));
+        Assertions.assertEquals("Die URL darf nicht null sein!", e3.getMessage());
+        Exception e4 = Assertions.assertThrows(IllegalArgumentException.class, () -> wortTrainer.addWortEintrag("Hund", "ftp://www.google.com"));
+        Assertions.assertEquals("Die URL ist ungültig!", e4.getMessage());
     }
 }
