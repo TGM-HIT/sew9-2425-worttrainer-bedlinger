@@ -9,18 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
  * Testklasse für die Klasse PersistenzXML
  *
  * @author bedlinger
- * @version 2024-09-28
+ * @version 2024-09-29
  */
 public class TestPersistenzXML {
     private WortTrainer wortTrainer;
     private Persistenz persistenz;
-    private static final String PATH = System.getProperty("user.home") + "\\WortTrainerNewStandardPath";
+    private static final String PATH = Paths.get(System.getProperty("user.home"), "WortTrainerNewStandardPath").toString();
 
     @BeforeEach
     public void setUp() {
@@ -52,17 +53,11 @@ public class TestPersistenzXML {
         this.persistenz.setStandardPath(PATH);
         Assertions.assertEquals(PATH, this.persistenz.getStandardPath());
 
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            this.persistenz.setStandardPath(null);
-        });
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> this.persistenz.setStandardPath(null));
         Assertions.assertEquals("Der Pfad darf nicht null sein", exception.getMessage());
-        exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            this.persistenz.setStandardPath("");
-        });
+        exception = Assertions.assertThrows(IllegalArgumentException.class, () -> this.persistenz.setStandardPath(""));
         Assertions.assertEquals("Der Pfad darf nicht leer sein", exception.getMessage());
-        exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            this.persistenz.setStandardPath("C:\\Users\\tgm\\Desktop");
-        });
+        exception = Assertions.assertThrows(IllegalArgumentException.class, () -> this.persistenz.setStandardPath("C:\\Users\\tgm\\Desktop"));
         Assertions.assertEquals("Der Pfad konnte nicht erstellt werden", exception.getMessage());
     }
 

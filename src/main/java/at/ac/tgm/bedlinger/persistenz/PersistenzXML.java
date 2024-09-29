@@ -8,12 +8,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Speichert einen WortTrainer in einer XML-Datei
  *
  * @author bedlinger
- * @version 2024-09-28
+ * @version 2024-09-29
  */
 public class PersistenzXML implements Persistenz {
     private String standardPath;
@@ -22,9 +23,7 @@ public class PersistenzXML implements Persistenz {
      * Konstruktor, der den Standardpfad auf den Benutzerordner setzt
      */
     public PersistenzXML() {
-        StringBuilder path = new StringBuilder(System.getProperty("user.home"));
-        path.append("\\WortTrainer");
-        setStandardPath(path.toString());
+        setStandardPath(Paths.get(System.getProperty("user.home"), "WortTrainer").toString());
     }
 
     /**
