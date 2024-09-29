@@ -14,13 +14,14 @@ import java.net.URISyntaxException;
  * Repräsentiert die View des Programms, mittels Java Swing
  *
  * @author Benjamin Edlinger
- * @version 2024-09-28
+ * @version 2024-09-29
  */
 public class View extends JFrame {
     private Controller controller;
 
     private JTextField tfEingabe;
     private JLabel lBild, lCounterAbgefragt, lCounterKorrekt, lCounterFalsch, lVorherigerVersuch;
+    private JButton btnAddWortEintrag;
 
     /**
      * Erstellt die View des Programms
@@ -65,7 +66,24 @@ public class View extends JFrame {
         bottom.add(lCounterFalsch);
         bottom.add(lVorheriger);
         bottom.add(lVorherigerVersuch);
-        this.add(bottom, BorderLayout.PAGE_END);
+
+        JPanel buttonPanel = new JPanel();
+        btnAddWortEintrag = new JButton("WortEintrag hinzufügen");
+        btnAddWortEintrag.addActionListener(_ -> {
+            String wort = JOptionPane.showInputDialog("Enter Wort:");
+            String url = JOptionPane.showInputDialog("Enter URL:");
+            if (wort != null && url != null) {
+                controller.addWortEintrag(wort, url);
+            }
+        });
+        buttonPanel.add(btnAddWortEintrag);
+
+        // Create a new panel to hold both the bottom panel and the button panel
+        JPanel combinedPanel = new JPanel(new BorderLayout());
+        combinedPanel.add(bottom, BorderLayout.CENTER);
+        combinedPanel.add(buttonPanel, BorderLayout.PAGE_END);
+
+        this.add(combinedPanel, BorderLayout.PAGE_END);
 
         addWindowListener(new WindowAdapter() {
             @Override
