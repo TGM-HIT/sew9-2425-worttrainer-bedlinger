@@ -9,7 +9,7 @@ import java.io.IOException;
  * Persistenzklasse, bspw. JSON, XML, Serialisierung, etc.
  *
  * @author Benjamin Edlinger
- * @version 2024-09-28
+ * @version 2024-09-29
  */
 public interface Persistenz {
 
@@ -57,11 +57,4 @@ public interface Persistenz {
      * @return der geladene WortTrainer
      */
     WortTrainer load(String path) throws IOException;
-
-    /**
-     * Gibt den Klassennamen der Implementierung zurück
-     *
-     * @return der Klassenname
-     */
-    String getClassName();
 }

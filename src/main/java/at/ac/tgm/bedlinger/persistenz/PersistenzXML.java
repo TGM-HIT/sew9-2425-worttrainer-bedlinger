@@ -17,13 +17,14 @@ import java.nio.file.Paths;
  * @version 2024-09-29
  */
 public class PersistenzXML implements Persistenz {
+    private static final String FILENAME = "worttrainer.xml";
     private String standardPath;
 
     /**
      * Konstruktor, der den Standardpfad auf den Benutzerordner setzt
      */
     public PersistenzXML() {
-        setStandardPath(Paths.get(System.getProperty("user.home"), "WortTrainer", "worttrainer.xml").toString());
+        setStandardPath(Paths.get(System.getProperty("user.home"), "WortTrainer").toString());
     }
 
     /**
@@ -93,7 +94,7 @@ public class PersistenzXML implements Persistenz {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            File file = new File(path);
+            File file = new File(path, FILENAME);
             marshaller.marshal(wortTrainer, file);
         } catch (JAXBException e) {
             throw new IOException("Fehler beim Speichern des WortTrainers", e);
@@ -123,20 +124,10 @@ public class PersistenzXML implements Persistenz {
         try {
             JAXBContext context = JAXBContext.newInstance(WortTrainer.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            File file = new File(path);
+            File file = new File(path, FILENAME);
             return (WortTrainer) unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
             throw new IOException("Fehler beim Laden des WortTrainers", e);
         }
-    }
-
-    /**
-     * Gibt den Klassennamen der Implementierung zurück
-     *
-     * @return der Klassenname
-     */
-    @Override
-    public String getClassName() {
-        return this.getClass().getName();
     }
 }
