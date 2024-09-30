@@ -2,6 +2,7 @@ package at.ac.tgm.bedlinger;
 
 import at.ac.tgm.bedlinger.controller.Controller;
 import at.ac.tgm.bedlinger.persistenz.Persistenz;
+import at.ac.tgm.bedlinger.persistenz.PersistenzJSON;
 import at.ac.tgm.bedlinger.persistenz.PersistenzXML;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Nachfrage welche Persistenz der Benutzer verwenden möchte, mittels JOptionPane
-        Map<String, Persistenz> persistenzMap = Map.of("XML", new PersistenzXML());
+        Map<String, Persistenz> persistenzMap = Map.of("XML", new PersistenzXML(), "JSON", new PersistenzJSON());
         String persistenz = (String) JOptionPane.showInputDialog(null, "Welche Persistenz möchten Sie verwenden?", "Persistenz", JOptionPane.QUESTION_MESSAGE, null, persistenzMap.keySet().toArray(), "XML");
 
         // Erstellung des Controllers mit der gewählten Persistenz
